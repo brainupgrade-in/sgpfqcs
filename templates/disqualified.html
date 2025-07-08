@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2 class="mb-3">Disqualified Prospects</h2>
+
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Contact&nbsp;Info</th>
+      <th scope="col">Reason / Notes</th>
+      <th scope="col">Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in items %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.contact_info or "—" }}</td>
+        <td>{{ p.qualifying_notes or "—" }}</td>
+        <td>{{ p.created_at.strftime("%Y-%m-%d") }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4" class="text-center text-muted">
+          No disqualified prospects yet.
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

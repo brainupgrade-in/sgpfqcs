@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2 class="mb-3">Prospects</h2>
+
+<!-- ── Add-prospect form ───────────────────────────────────────────── -->
+<form class="row g-3 mb-4" method="post">
+  <div class="col-md-4 col-sm-6">
+    <input name="name" class="form-control" placeholder="Prospect Name" required>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <input name="contact" class="form-control" placeholder="Contact Info">
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary">Add</button>
+  </div>
+</form>
+
+<!-- ── Prospects table ─────────────────────────────────────────────── -->
+<table class="table table-striped align-middle">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Contact</th>
+      <th>Status</th>
+      <th style="width:260px;">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in items %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.contact_info or '—' }}</td>
+        <td>{{ p.status }}</td>
+        <td>
+          {% if p.status == "found" %}
+            <!-- Qualify button -->
+            <form class="d-inline" action="{{ url_for('qualify', pid=p.id) }}" method="post">
+              <input type="hidden" name="decision" value="qualify">
+              <input type="hidden" name="notes"    value="Qualified via UI">
+              <button class="btn btn-sm btn-success">Qualify</button>
+            </form>
+
+            <!-- Disqualify button -->
+            <form class="d-inline ms-1" action="{{ url_for('qualify', pid=p.id) }}" method="post">
+              <input type="hidden" name="decision" value="disqualify">
+              <input type="text"   name="notes"
+                     class="form-control form-control-sm d-inline-block"
+                     placeholder="Reason" style="width:120px;">
+              <button class="btn btn-sm btn-outline-danger ms-1">Disqualify</button>
+            </form>
+          {% else %}
+            <span class="text-muted">—</span>
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4" class="text-center text-muted">No prospects yet.</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

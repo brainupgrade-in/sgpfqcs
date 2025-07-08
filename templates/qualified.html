@@ -1,0 +1,37 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h2>Qualified Prospects</h2>
+<table class="table table-striped">
+  <thead>
+    <tr><th>Name</th><th>Contact</th><th>Action</th></tr>
+  </thead>
+  <tbody>
+    {% for p in items %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.contact_info }}</td>
+        <td>
+          <form class="row g-2" action="{{ url_for('convert', pid=p.id) }}" method="post">
+            <div class="col-auto">
+              <input class="form-control form-control-sm" name="amount" placeholder="₹ Amount">
+            </div>
+            <div class="col-auto">
+              <select name="success" class="form-select form-select-sm">
+                <option value="true">Won</option>
+                <option value="false">Lost</option>
+              </select>
+            </div>
+            <div class="col-auto">
+              <input class="form-control form-control-sm" name="notes" placeholder="Notes">
+            </div>
+            <div class="col-auto">
+              <button class="btn btn-sm btn-primary">Save</button>
+            </div>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,39 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<h1 class="mb-4">Dashboard</h1>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-body">
+            <h4 class="card-title">{{ total_found }}</h4>
+            <p class="card-text">Prospects Found</p>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-body">
+            <h4 class="card-title">{{ total_qualified }}</h4>
+            <p class="card-text">Qualified Prospects</p>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-body">
+            <h4 class="card-title">{{ total_converted }}</h4>
+            <p class="card-text">Converted Prospects</p>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-info mb-3">
+          <div class="card-body">
+            <h4 class="card-title">{{ total_sales | round(2) }}</h4>
+            <p class="card-text">Sales Achieved (₹)</p>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
